@@ -31,7 +31,7 @@ export const load: PageServerLoad = ({ cookies }) => {
 };
 
 export const actions: Actions = {
-	'calculate-weight': async ({ request, cookies }) => {
+	default: async ({ request, cookies }) => {
 		const data = await request.formData();
 		const formData = Array.from(Object.entries(formKeys)).reduce(
 			(acc, [key, value]) => ({

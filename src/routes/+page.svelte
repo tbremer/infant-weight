@@ -16,7 +16,7 @@ let sex = data.sex;
 </p>
 {/if}
 
-<form action="?/calculate-weight" method="post">
+<form action="/" method="post">
     <fieldset>
         <legend>
             date of birth
