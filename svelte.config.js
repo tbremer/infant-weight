@@ -13,7 +13,7 @@ const config = {
 			checkOrigin: false
 		},
 		paths: {
-			base: '/app'
+			base: '/weight'
 		}
 	}
 };
