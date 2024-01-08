@@ -31,7 +31,10 @@ export const load: PageServerLoad = ({ cookies }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, cookies }) => {
+	default: async ({ request, cookies, params }) => {
+		console.log('server action');
+		console.log(params);
+
 		const data = await request.formData();
 		const formData = Array.from(Object.entries(formKeys)).reduce(
 			(acc, [key, value]) => ({
