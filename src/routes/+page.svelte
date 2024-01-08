@@ -1,14 +1,12 @@
 <script>
-export let data;
-export let form;
+    import {base} from '$app/paths';
 
-let measure = form?.weightType ?? 'lbs';
-let sex = data.sex;
+    export let data;
+    export let form;
+
+    let measure = form?.weightType ?? 'lbs';
+    let sex = data.sex;
 </script>
-
-<!-- <pre>
-    {JSON.stringify(form, null, 2)}
-</pre> -->
 
 {#if form}
 <p>
@@ -16,7 +14,7 @@ let sex = data.sex;
 </p>
 {/if}
 
-<form action="/" method="post">
+<form action="{base}" method="post">
     <fieldset>
         <legend>
             date of birth
