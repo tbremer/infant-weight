@@ -1,11 +1,12 @@
 <script>
     import {base} from '$app/paths';
+    import {enhance} from '$app/forms';
 
     export let data;
     export let form;
 
-    let measure = form?.weightType ?? 'lbs';
-    let sex = data.sex;
+    $: measure = form?.weightType ?? 'lbs';
+    $: sex = data.sex;
 </script>
 
 {#if form}
@@ -14,7 +15,7 @@
 </p>
 {/if}
 
-<form action="{base}" method="post">
+<form action="{base}" method="post" use:enhance>
     <fieldset>
         <legend>
             date of birth
