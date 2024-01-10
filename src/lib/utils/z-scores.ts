@@ -6,12 +6,20 @@ export function calcZScore(weight: number, { L, M, S }: { L: number; M: number; 
 }
 
 export function zScoreToPercent(zScore: number): number {
-	const fixed = zScore.toFixed(2).toString();
+	let fixed: string | number = zScore;
+
+	if (fixed < -3.0) fixed = -3.0;
+	if (fixed > 3.0) fixed = 3.0;
+
+	fixed = fixed.toFixed(2).toString();
+
 	const head = fixed.slice(0, fixed.startsWith('-') ? 4 : 3);
 	let tail = parseInt(fixed.slice(-1), 10);
 
 	if (tail > 8) tail = 8;
 	if (tail < 0) tail = 0;
+
+	console.log(fixed);
 
 	if (!ensureZScore(head)) throw new Error(`No z-score data for ${head}`);
 

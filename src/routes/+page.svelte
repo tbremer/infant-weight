@@ -53,7 +53,7 @@
 		<legend>Weight</legend>
 		{#if measure === 'lbs'}
 			<input type="number" name="lbs" step="0.001" value={form?.lb} /> lbs
-			<input type="number" name="oz" step="0.1" value={form?.oz} /> oz
+			<input type="number" name="oz" step="0.1" max="15.9" min="0" value={form?.oz} /> oz
 		{:else}
 			<input type="number" name="weight" step="0.001" value={form?.kg} />
 		{/if}
