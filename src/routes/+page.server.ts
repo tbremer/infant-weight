@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from '@sveltejs/kit';
-import { daysBetweenDates } from '../utils/date';
-import { ensureGender } from '../utils/assertion';
-import { calcLbs, getLMS, lbsToKg } from '../utils/weight';
-import { calcZScore, zScoreToPercent } from '../utils/z-scores';
+import { daysBetweenDates } from '$lib/utils/date';
+import { ensureGender } from '$lib/utils/assertion';
+import { calcLbs, getLMS, lbsToKg } from '$lib/utils/weight';
+import { calcZScore, zScoreToPercent } from '$lib/utils/z-scores';
 
 const formKeys = {
 	birthDay: 'date-birth',

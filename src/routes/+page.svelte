@@ -5,12 +5,18 @@
 	export let data;
 	export let form;
 
+	const measurementTypes = [
+		['kg', 'kg'],
+		['lbs', 'lbs/ozs']
+	];
+	const sexes = ['female', 'male'];
+
 	$: measure = form?.weightType ?? 'lbs';
-	$: sex = data.sex;
+	$: sex = data.sex ?? form?.sex;
 </script>
 
 <svelte:head>
-	<title>tbremer.com | Infant Weight Percentage Calculator</title>
+	<title>tbremer.com — Infant Weight Percentage Calculator</title>
 </svelte:head>
 
 {#if form}
@@ -22,7 +28,13 @@
 	</p>
 {/if}
 
-<form action={base} method="post" use:enhance>
+<form
+	action={base}
+	method="post"
+	use:enhance={(...args) => {
+		return ({ update }) => update({ reset: false });
+	}}
+>
 	<fieldset>
 		<legend> date of birth </legend>
 		<input type="date" name="date-birth" value={data.dob} />
@@ -43,14 +55,10 @@
 		{:else}
 			<input type="number" name="weight" step="0.001" value={form?.kg} />
 		{/if}
-		{#each ['kg', 'lbs'] as format}
+		{#each measurementTypes as [format, label]}
 			<label>
 				<input type="radio" name="measurement" value={format} bind:group={measure} />
-				{#if format === 'lbs'}
-					lbs / ozs
-				{:else}
-					kg
-				{/if}
+				{label}
 			</label>
 		{/each}
 	</fieldset>
@@ -58,7 +66,7 @@
 
 	<fieldset>
 		<legend>Assigned Sex at Birth</legend>
-		{#each ['female', 'male'] as s}
+		{#each sexes as s}
 			<label>
 				<input type="radio" name="sex" value={s} bind:group={sex} />
 				{s}
