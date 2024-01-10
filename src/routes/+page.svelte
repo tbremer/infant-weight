@@ -21,8 +21,10 @@
 
 {#if form}
 	<p>
-		Your baby {form.sex === 'female' ? 'girl' : 'boy'} is {form.daysOld} days old, with a weight of {form.weightType ===
-		'kg'
+		Your baby {form.sex === 'female' ? 'girl' : 'boy'} is {form.monthsOld} month{form.monthsOld ===
+		1
+			? ''
+			: 's'} old, with a weight of {form.weightType === 'kg'
 			? `${form.kg}kg`
 			: `${form.lb}lb, ${form.oz}oz`} your baby is in the {form.percent} percentile.
 	</p>
@@ -31,7 +33,7 @@
 <form
 	action={base}
 	method="post"
-	use:enhance={(...args) => {
+	use:enhance={() => {
 		return ({ update }) => update({ reset: false });
 	}}
 >

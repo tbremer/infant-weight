@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from '@sveltejs/kit';
-import { daysBetweenDates } from '$lib/utils/date';
+import { monthsBetweenDates } from '$lib/utils/date';
 import { ensureGender } from '$lib/utils/assertion';
 import { calcLbs, getLMS, lbsToKg } from '$lib/utils/weight';
 import { calcZScore, zScoreToPercent } from '$lib/utils/z-scores';
@@ -45,15 +45,15 @@ export const actions: Actions = {
 			formData.type === 'kg'
 				? Number(formData.weight)
 				: lbsToKg(calcLbs(formData.pounds, formData.ounces));
-		const daysOld = daysBetweenDates(new Date(formData.birthDay), new Date(formData.weighDay));
-		const LMSData = getLMS(daysOld, ensureGender(formData.sex));
+		const monthsOld = monthsBetweenDates(new Date(formData.birthDay), new Date(formData.weighDay));
+		const LMSData = getLMS(monthsOld, ensureGender(formData.sex));
 		const zScore = calcZScore(weight, LMSData);
 
 		cookies.set('dob', formData.birthDay, { path: '/' });
 		cookies.set('sex', formData.sex, { path: '/' });
 
 		return {
-			daysOld,
+			monthsOld,
 			sex: formData.sex,
 			weightType: formData.type,
 			kg: weight,
