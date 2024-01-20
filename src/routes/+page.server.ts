@@ -16,12 +16,15 @@ const formKeys = {
 } as const;
 type FormKeys = keyof typeof formKeys;
 
-export const load: PageServerLoad = ({ cookies }) => {
+export const load: PageServerLoad = ({ cookies, url }) => {
 	const date = new Date();
 	const month = date.getMonth() + 1;
 	const day = date.getDate() + 1;
 
+	const debug = url.searchParams.has('debug');
+
 	return {
+		debug,
 		dob:
 			cookies.get('dob') ??
 			`${date.getFullYear() - 1}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`,
@@ -60,7 +63,7 @@ export const actions: Actions = {
 			lb: formData.pounds,
 			oz: formData.ounces,
 			zScore,
-			percent: zScoreToPercent(zScore)
+			percent: zScoreToPercent(zScore, true) * 100
 		};
 	}
 };
