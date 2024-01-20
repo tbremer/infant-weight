@@ -55,6 +55,8 @@ export const actions: Actions = {
 		cookies.set('dob', formData.birthDay, { path: '/' });
 		cookies.set('sex', formData.sex, { path: '/' });
 
+		const percent = (zScoreToPercent(zScore, true) * 100).toFixed(2);
+
 		return {
 			monthsOld,
 			sex: formData.sex,
@@ -63,7 +65,8 @@ export const actions: Actions = {
 			lb: formData.pounds,
 			oz: formData.ounces,
 			zScore,
-			percent: zScoreToPercent(zScore, true) * 100
+			percent,
+			percentRaaw: zScoreToPercent(zScore, true) * 100
 		};
 	}
 };
