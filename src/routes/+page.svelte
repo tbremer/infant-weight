@@ -42,7 +42,7 @@
 		}}
 	>
 		<div
-			class="grid grid-cols-3 divide-x-2 divide-stone-300 bg-stone-100 border border-stone-300 rounded *:py-2 *:px-4"
+			class="md:grid md:grid-cols-3 md:grid-rows-1 md:divide-x-2 md:gap-0 flex flex-col gap-2 divide-y-2 divide-stone-300 bg-stone-100 border border-stone-300 rounded *:py-2 *:px-4"
 		>
 			<section>
 				<h2 class="font-medium text-base mb-2 text-pretty">Sex assigned at birth</h2>
@@ -70,7 +70,7 @@
 							class="rounded-md shadow-sm ring-1 ring-inset ring-stone-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md bg-stone-50"
 						>
 							<input
-								class="block w-full border-0 bg-transparent py-1.5 pl-1 text-stone-900 placeholder:text-stone-400 focus:ring-0 sm:text-sm sm:leading-6 outline-0"
+								class="block w-full border-0 bg-transparent py-1.5 px-1 text-stone-900 placeholder:text-stone-400 focus:ring-0 outline-0"
 								type="date"
 								name="date-birth"
 								value={data.dob}
@@ -83,7 +83,7 @@
 							class="rounded-md shadow-sm ring-1 ring-inset ring-stone-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md bg-stone-50"
 						>
 							<input
-								class="block w-full border-0 bg-transparent py-1.5 pl-1 text-stone-900 placeholder:text-stone-400 focus:ring-0 sm:text-sm sm:leading-6 outline-0"
+								class="block w-full border-0 bg-transparent py-1.5 px-1 text-stone-900 placeholder:text-stone-400 focus:ring-0 outline-0"
 								type="date"
 								name="date-weight"
 								value={data.today}
@@ -124,7 +124,7 @@
 	/>
 
 	<section class="text-sm text-stone-600 space-y-2">
-		<h3 class="text-base text-stone-900">About the application:</h3>
+		<h3 class="text-lg font-medium text-stone-900">About the application:</h3>
 		<p>
 			The data for the calculations were taken from the <a
 				href="https://www.who.int/tools/child-growth-standards/standards/weight-for-age#PageContent_C005_Col00"
