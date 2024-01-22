@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from '@sveltejs/kit';
-import { monthsBetweenDates } from '$lib/utils/date';
+import { MS_IN_MONTH, monthsBetweenDates } from '$lib/utils/date';
 import { ensureGender } from '$lib/utils/assertion';
 import { calcLbs, getLMS, lbsToKg } from '$lib/utils/weight';
 import { calcZScore, zScoreToPercent } from '$lib/utils/z-scores';
@@ -25,9 +25,7 @@ export const load: PageServerLoad = ({ cookies, url }) => {
 
 	return {
 		debug,
-		dob:
-			cookies.get('dob') ??
-			`${date.getFullYear() - 1}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`,
+		dob: cookies.get('dob'),
 		sex: cookies.get('sex'),
 		today: `${date.getFullYear()}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`
 	};
@@ -52,8 +50,11 @@ export const actions: Actions = {
 		const LMSData = getLMS(monthsOld, ensureGender(formData.sex));
 		const zScore = calcZScore(weight, LMSData);
 
-		cookies.set('dob', formData.birthDay, { path: '/' });
-		cookies.set('sex', formData.sex, { path: '/' });
+		cookies.set('dob', formData.birthDay, {
+			path: '/',
+			expires: new Date(Date.now() + MS_IN_MONTH)
+		});
+		cookies.set('sex', formData.sex, { path: '/', expires: new Date(Date.now() + MS_IN_MONTH) });
 
 		const percent = (zScoreToPercent(zScore, true) * 100).toFixed(2);
 
@@ -66,7 +67,7 @@ export const actions: Actions = {
 			oz: formData.ounces,
 			zScore,
 			percent,
-			percentRaaw: zScoreToPercent(zScore, true) * 100
+			percentRaw: zScoreToPercent(zScore, true) * 100
 		};
 	}
 };

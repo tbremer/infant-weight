@@ -1,6 +1,5 @@
 <script>
 	import { base } from '$app/paths';
-	import { enhance } from '$app/forms';
 
 	export let data;
 	export let form;
@@ -23,24 +22,19 @@
 	<h1 class="text-xl font-bold text-stone-900">Infant Weight Percentile Calculator</h1>
 
 	{#if form}
-		<p>
-			Your baby {form.sex === 'female' ? 'girl' : 'boy'} is {form.monthsOld} month{form.monthsOld ===
-			1
-				? ''
-				: 's'} old, with a weight of {form.weightType === 'kg'
-				? `${form.kg}kg`
-				: `${form.lb}lb, ${form.oz}oz`} your baby is in the {form.percent} percentile.
-		</p>
+		<section>
+			<p>
+				Your baby {form.sex === 'female' ? 'girl' : 'boy'} is {form.monthsOld} month{form.monthsOld ===
+				1
+					? ''
+					: 's'} old, with a weight of {form.weightType === 'kg'
+					? `${form.kg}kg`
+					: `${form.lb}lb, ${form.oz}oz`} your baby is in the {form.percent} percentile.
+			</p>
+		</section>
 	{/if}
 
-	<form
-		action={base}
-		class="p-4"
-		method="post"
-		use:enhance={() => {
-			return ({ update }) => update({ reset: false });
-		}}
-	>
+	<form action={base} class="p-4" method="post">
 		<div
 			class="md:grid md:grid-cols-3 md:grid-rows-1 md:divide-x-2 md:gap-0 flex flex-col gap-2 divide-y-2 divide-stone-300 bg-stone-100 border border-stone-300 rounded *:py-2 *:px-4"
 		>
@@ -116,7 +110,12 @@
 			</section>
 		</div>
 
-		<button class="mt-4">Calculate</button>
+		<!-- <div class="flex justify-start"> -->
+		<button
+			class="mt-4 inline-flex justify-center rounded-md bg-sky-600 px-6 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+			>Calculate</button
+		>
+		<!-- </div> -->
 	</form>
 
 	<hr
