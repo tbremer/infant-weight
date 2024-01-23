@@ -1,5 +1,6 @@
-import boysWeight from './boys.json';
-import girlsWeight from './girls.json';
+// import boysWeight from './boys.json';
+import boysDaily from './boys.day.json';
+import girlsDaily from './girls.day.json';
 import { ensureKey } from '../assertion';
 
 export function lbsToKg(lbs: number): number {
@@ -13,9 +14,9 @@ export function getLMS(
 	const str = daysOld.toString();
 	if (!ensureKey(str)) throw new Error(`No weight data for ${daysOld} days old`);
 
-	if (gender === 'male') return boysWeight[str];
+	if (gender === 'male') return boysDaily[str];
 
-	return girlsWeight[str];
+	return girlsDaily[str];
 }
 
 export function calcLbs(lbs: string, oz: string | null | undefined): number {

@@ -1,5 +1,11 @@
 {
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": false,
-	"editor.defaultFormatter": "svelte.svelte-vscode"
+	"editor.defaultFormatter": "svelte.svelte-vscode",
+
+	"[json]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": false,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
 }

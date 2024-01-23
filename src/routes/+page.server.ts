@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from '@sveltejs/kit';
-import { MS_IN_MONTH, monthsBetweenDates } from '$lib/utils/date';
+import { MS_IN_MONTH, monthsBetweenDates, daysBetweenDates } from '$lib/utils/date';
 import { ensureGender } from '$lib/utils/assertion';
 import { calcLbs, getLMS, lbsToKg } from '$lib/utils/weight';
 import { calcZScore, zScoreToPercent } from '$lib/utils/z-scores';
@@ -19,7 +19,7 @@ type FormKeys = keyof typeof formKeys;
 export const load: PageServerLoad = ({ cookies, url }) => {
 	const date = new Date();
 	const month = date.getMonth() + 1;
-	const day = date.getDate() + 1;
+	const day = date.getDate();
 
 	const debug = url.searchParams.has('debug');
 
@@ -47,19 +47,18 @@ export const actions: Actions = {
 				? Number(formData.weight)
 				: lbsToKg(calcLbs(formData.pounds, formData.ounces));
 		const monthsOld = monthsBetweenDates(new Date(formData.birthDay), new Date(formData.weighDay));
-		const LMSData = getLMS(monthsOld, ensureGender(formData.sex));
+		const daysOld = daysBetweenDates(new Date(formData.birthDay), new Date(formData.weighDay));
+		const LMSData = getLMS(daysOld, ensureGender(formData.sex));
 		const zScore = calcZScore(weight, LMSData);
 
-		cookies.set('dob', formData.birthDay, {
-			path: '/',
-			expires: new Date(Date.now() + MS_IN_MONTH)
-		});
-		cookies.set('sex', formData.sex, { path: '/', expires: new Date(Date.now() + MS_IN_MONTH) });
+		cookies.set('dob', formData.birthDay, getCookieOptions());
+		cookies.set('sex', formData.sex, getCookieOptions());
 
 		const percent = (zScoreToPercent(zScore, true) * 100).toFixed(2);
 
 		return {
 			monthsOld,
+			daysOld,
 			sex: formData.sex,
 			weightType: formData.type,
 			kg: weight,
@@ -71,3 +70,9 @@ export const actions: Actions = {
 		};
 	}
 };
+
+function getCookieOptions(): { path: string; expires: Date } {
+	const path = '/';
+	const expires = new Date(Date.now() + MS_IN_MONTH);
+	return { path, expires };
+}
