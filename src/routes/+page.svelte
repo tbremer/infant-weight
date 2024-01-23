@@ -1,5 +1,6 @@
 <script>
 	import { base } from '$app/paths';
+	import { enhance } from '$app/forms';
 
 	export let data;
 	export let form;
@@ -34,7 +35,14 @@
 		</section>
 	{/if}
 
-	<form action={base} class="p-4" method="post">
+	<form
+		action={base}
+		class="p-4"
+		method="post"
+		use:enhance={() => {
+			return ({ update }) => update({ reset: false });
+		}}
+	>
 		<div
 			class="md:grid md:grid-cols-3 md:grid-rows-1 md:divide-x-2 md:gap-0 flex flex-col gap-2 divide-y-2 divide-stone-300 bg-stone-100 border border-stone-300 rounded *:py-2 *:px-4"
 		>
@@ -92,10 +100,25 @@
 					<legend class="p-2 ml-2 text-sm font-medium">Weight</legend>
 					<div>
 						{#if measure === 'lbs'}
-							<input type="number" name="lbs" step="0.001" value={form?.lb} /> lbs
-							<input type="number" name="oz" step="0.1" max="15.9" min="0" value={form?.oz} /> oz
+							<input required type="number" name="lbs" step="1" min="1" value={form?.lb ?? ''} />
+							lbs
+							<input
+								required
+								type="number"
+								name="oz"
+								step="0.1"
+								max="15.9"
+								min="0"
+								value={form?.oz ?? ''}
+							/> oz
 						{:else}
-							<input type="number" name="weight" step="0.001" value={form?.kg} /> kg
+							<input
+								required
+								type="number"
+								name="weight"
+								step="0.001"
+								value={Number(form?.kg).toFixed(3)}
+							/> kg
 						{/if}
 					</div>
 					<div class="flex gap-4">
