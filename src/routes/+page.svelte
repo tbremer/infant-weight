@@ -117,7 +117,9 @@
 								type="number"
 								name="weight"
 								step="0.001"
-								value={Number(form?.kg).toFixed(3)}
+								value={Number(form?.kg)
+									.toFixed(3)
+									.replace(/\.000|0{1,}$/, '')}
 							/> kg
 						{/if}
 					</div>
