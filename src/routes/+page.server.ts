@@ -54,7 +54,7 @@ export const actions: Actions = {
 		cookies.set('dob', formData.birthDay, getCookieOptions());
 		cookies.set('sex', formData.sex, getCookieOptions());
 
-		const percent = (zScoreToPercent(zScore, true) * 100).toFixed(2);
+		const percent = (zScoreToPercent(zScore, false) * 100).toFixed(2);
 
 		return {
 			monthsOld,
