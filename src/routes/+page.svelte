@@ -2,8 +2,15 @@
 	import { base } from '$app/paths';
 	import { enhance } from '$app/forms';
 
+	const date = new Date();
+	const month = date.getMonth() + 1;
+	const day = date.getDate();
+
 	export let data;
 	export let form;
+	export let today = `${date.getFullYear()}-${month < 10 ? `0${month}` : month}-${
+		day < 10 ? `0${day}` : day
+	}`;
 
 	const measurementTypes = [
 		['kg', 'kg'],
@@ -88,7 +95,7 @@
 								class="block w-full border-0 bg-transparent py-1.5 px-1 text-stone-900 placeholder:text-stone-400 focus:ring-0 outline-0"
 								type="date"
 								name="date-weight"
-								value={data.today}
+								value={today}
 							/>
 						</div>
 					</div>

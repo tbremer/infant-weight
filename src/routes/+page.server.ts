@@ -17,17 +17,12 @@ const formKeys = {
 type FormKeys = keyof typeof formKeys;
 
 export const load: PageServerLoad = ({ cookies, url }) => {
-	const date = new Date();
-	const month = date.getMonth() + 1;
-	const day = date.getDate();
-
 	const debug = url.searchParams.has('debug');
 
 	return {
 		debug,
 		dob: cookies.get('dob'),
-		sex: cookies.get('sex'),
-		today: `${date.getFullYear()}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`
+		sex: cookies.get('sex')
 	};
 };
 
@@ -55,7 +50,7 @@ export const actions: Actions = {
 		cookies.set('sex', formData.sex, getCookieOptions());
 
 		// const percent = (zScoreToPercent(zScore, true) * 100).toFixed(2);
-		const percent = (zScoreToPercent(zScore)).toFixed(2);
+		const percent = zScoreToPercent(zScore).toFixed(2);
 
 		return {
 			monthsOld,
